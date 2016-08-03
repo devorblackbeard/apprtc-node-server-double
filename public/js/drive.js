@@ -1,6 +1,6 @@
 $(function(){
 
-window.socket = io(':8443');
+socket = io(':8443');
 
 socket.on('connect', function() {
     console.log('Connected to socket');
@@ -8,41 +8,38 @@ socket.on('connect', function() {
 $(window).bind('keydown', function(e){
     if (e.keyCode == 37) {
         console.log('left');
-	socket.emit('control', {serial: $("#double-select").find(":selected").text(), left: 'start'});
+	socket.emit('control', {serial: "id25", left: 'start'});
     } else if (e.keyCode == 38) {
         console.log('up');
-	socket.emit('control', {serial: $("#double-select").find(":selected").text(), forward: 'start'});
+	socket.emit('control', {serial: "id25", forward: 'start'});
     } else if (e.keyCode == 39) {
         console.log('right');
-	socket.emit('control', {serial: $("#double-select").find(":selected").text(), right: 'start'});
+	socket.emit('control', {serial: "id25", right: 'start'});
     } else if (e.keyCode == 40) {
         console.log('down');
-	socket.emit('control', {serial: $("#double-select").find(":selected").text(), backward: 'start'});
+	socket.emit('control', {serial: "id25", backward: 'start'});
     }
 });
 
 $(window).bind('keyup', function(e){
     if (e.keyCode == 37) {
         console.log('left');
-	socket.emit('control', {serial: $("#double-select").find(":selected").text(), left: 'stop'});
+	socket.emit('control', {serial: "id25", left: 'stop'});
     } else if (e.keyCode == 38) {
         console.log('up');
-	socket.emit('control', {serial: $("#double-select").find(":selected").text(), forward: 'stop'});
+	socket.emit('control', {serial: "id25", forward: 'stop'});
     } else if (e.keyCode == 39) {
         console.log('right');
-	socket.emit('control', {serial: $("#double-select").find(":selected").text(), right: 'stop'});
+	socket.emit('control', {serial: "id25", right: 'stop'});
     } else if (e.keyCode == 40) {
         console.log('down');
-	socket.emit('control', {serial: $("#double-select").find(":selected").text(), backward: 'stop'});
+	socket.emit('control', {serial: "id25", backward: 'stop'});
     }
 });
 });
 
 socket.on('doubles', function(doubles) {
-	$("#double-select").html("");
-	doubles.forEach(function(double) {
-		$("#double-select").append('<option value="' + double + '">' + double + '</option>');
-	});
+	console.log("Got Doubles");
 	
 	if (doubles.length > 0) {
 		$("#controls").show();
@@ -51,34 +48,4 @@ socket.on('doubles', function(doubles) {
 	}
 });
 
-$(window).bind('keydown', function(e){
-    if (e.keyCode == 37) {
-        console.log('left');
-	socket.emit('control', {serial: $("#double-select").find(":selected").text(), left: 'start'});
-    } else if (e.keyCode == 38) {
-        console.log('up');
-	socket.emit('control', {serial: $("#double-select").find(":selected").text(), forward: 'start'});
-    } else if (e.keyCode == 39) {
-        console.log('right');
-	socket.emit('control', {serial: $("#double-select").find(":selected").text(), right: 'start'});
-    } else if (e.keyCode == 40) {
-        console.log('down');
-	socket.emit('control', {serial: $("#double-select").find(":selected").text(), backward: 'start'});
-    }
-});
-
-$(window).bind('keyup', function(e){
-    if (e.keyCode == 37) {
-        console.log('left');
-	socket.emit('control', {serial: $("#double-select").find(":selected").text(), left: 'start'});
-    } else if (e.keyCode == 38) {
-        console.log('up');
-	socket.emit('control', {serial: $("#double-select").find(":selected").text(), forward: 'start'});
-    } else if (e.keyCode == 39) {
-        console.log('right');
-	socket.emit('control', {serial: $("#double-select").find(":selected").text(), right: 'start'});
-    } else if (e.keyCode == 40) {
-        console.log('down');
-	socket.emit('control', {serial: $("#double-select").find(":selected").text(), backward: 'start'});
-    }
 });
