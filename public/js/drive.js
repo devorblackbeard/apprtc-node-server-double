@@ -1,6 +1,8 @@
 var $j = jQuery.noConflict();
 $j(function(){
 
+var FOV = 54 * Math.PI/180; // camera fov in radians
+
 socket = io(':8443');
 
 socket.on('connect', function() {
@@ -36,6 +38,20 @@ $j(window).bind('keyup', function(e){
         console.log('down');
 	socket.emit('control', {serial: "id25", backward: 'stop'});
     }
+});
+
+$j(document).click(function(e) {
+    var width = window.innerWidth/2;
+    var x = e.pageX - width;
+    if (x > 0) {
+        theta = - Math.atan((x/width) * Math.tan(FOV/2)) * 180/Math.PI;
+    } else if (x < 0) {
+        theta = Math.atan((-x/width) * Math.tan(FOV/2)) * 180/Math.PI;
+    } else {
+        theta = 0;
+    }
+    console.log('turn ' + theta);
+    socket.emit('control', {serial: "id25", turn: theta});
 });
 });
 
