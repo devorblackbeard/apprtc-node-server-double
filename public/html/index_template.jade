@@ -97,13 +97,9 @@ body
 
 
   script(src='/js/apprtc.debug.js')
-  script(src='/js/socket.io.js')
-  script(src='/js/jquery.min.js')
-  script(src='/js/drive.js')
 
   if chromeapp
     script(src='/js/appwindow.js')
-
 
   if !chromeapp
     script(type="text/javascript").
@@ -151,3 +147,8 @@ body
       }
 
       initialize();
+
+  script(src='/js/jquery.min.js')
+  script(src='/js/socket.io.js')
+  script(src='/js/drive.js')
+

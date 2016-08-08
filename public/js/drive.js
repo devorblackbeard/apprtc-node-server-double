@@ -1,11 +1,12 @@
-$(function(){
+var $j = jQuery.noConflict();
+$j(function(){
 
 socket = io(':8443');
 
 socket.on('connect', function() {
     console.log('Connected to socket');
     socket.emit('send doubles');
-$(window).bind('keydown', function(e){
+$j(window).bind('keydown', function(e){
     if (e.keyCode == 37) {
         console.log('left');
 	socket.emit('control', {serial: "id25", left: 'start'});
@@ -21,7 +22,7 @@ $(window).bind('keydown', function(e){
     }
 });
 
-$(window).bind('keyup', function(e){
+$j(window).bind('keyup', function(e){
     if (e.keyCode == 37) {
         console.log('left');
 	socket.emit('control', {serial: "id25", left: 'stop'});
@@ -40,12 +41,6 @@ $(window).bind('keyup', function(e){
 
 socket.on('doubles', function(doubles) {
 	console.log("Got Doubles");
-	
-	if (doubles.length > 0) {
-		$("#controls").show();
-	} else {
-		$("#controls").hide();
-	}
 });
 
 });
