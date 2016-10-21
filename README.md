@@ -1,18 +1,4 @@
 # AppRTC - NodeJS implementation of the Google WebRTC Demo
-
-## About
-AppRTC-node-server is a straight port of the AppRTC Python Server from the Google WebRTC Demo to run entirely in the NodeJS environment.
-
-## Notes
-This still a work in progress. We are in the process of cleaning up the code and making several enhancements:
-
-1. Implementing as a node module so you can easily adapt to your project
-2. Refactoring the code to optimize for NodeJS
-3. Implementing options for memcache or redis cluster for scaling video chat sessions
-4. Providing more documentation and extensibility
-5. Adding a built-in Turn Server for better WebRTC portability
-
-
 ## Setup
 Setting up the environment just requires the following:
 
@@ -30,3 +16,28 @@ node ./bin/www
 ```
 
 Navigate to `http://localhost:3000` to run the WebRTC Demo
+
+## Double Modifications
+The AppRTC server has been modified to control the Double robot. There are no changes to the server itself, but there are changes in the public folder to the web application. A new script, drive.js, has been added. This sends controls over a WebSockets connection on port 8443 to the Double Control Server. The controls are as follows:
+
+* Arrow keys move Double left/right, back/forward
+* R retracts the kickstand
+* D deploys the kickstand
+* N begins navigation
+* F begins following
+
+Any other controls can be added and will be forwarded to the iOS application. It is up to the iOS application how they are interpreted.
+
+This server requires port 3000 to be open, as well as 8443 for Double controls.
+
+By navigating to the server, currently at http://csse-s402g2.canterbury.ac.nz, followed by entering a room number, then the same room number on the iOS application, a call will setup and the Double will be able to be controlled.
+
+Unless an SSL certificate is installed, a Google Chrome workaround must be used to enable video. On macOS, Chrome must be started with this command:
+
+sudo open -a Google\ Chrome --args --unsafely-treat-insecure-origin-as-secure="http://csse-s402g2:3000" --user-data-dir=/test/only/profile/dir
+
+Or similarly in Linux using:
+
+sudo open -a Google\ Chrome --args --unsafely-treat-insecure-origin-as-secure="http://csse-s402g2:3000" --user-data-dir=/test/only/profile/dir
+
+However, this command may vary on different distros.
