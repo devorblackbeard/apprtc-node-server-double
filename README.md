@@ -38,6 +38,6 @@ sudo open -a Google\ Chrome --args --unsafely-treat-insecure-origin-as-secure="h
 
 Or similarly in Linux using:
 
-sudo open -a Google\ Chrome --args --unsafely-treat-insecure-origin-as-secure="http://csse-s402g2:3000" --user-data-dir=/test/only/profile/dir
+google-chrome --unsafely-treat-insecure-origin-as-secure="http://csse-s402g2:3000" --user-data-dir=/test/only/profile/dir
 
 However, this command may vary on different distros.
